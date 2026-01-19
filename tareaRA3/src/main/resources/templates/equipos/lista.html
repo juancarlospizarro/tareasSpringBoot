@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+    <title>Listado de Equipos</title>
+    	<link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+<h1>Listado de Equipos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Año de fundación</th>
+            <th>Ciudad</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="equipo : ${equipos}">
+            <td th:text="${equipo.nombre}"></td>
+            <td th:text="${equipo.anio_fundacion}"></td>
+            <td th:text="${equipo.ciudad}"></td>
+            <td>
+                <!-- Botones o enlaces para editar y eliminar -->
+                <a th:href="@{/equipos/eliminar/{id}(id=${equipo.id})}">Eliminar</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/equipos/nuevo}" class="button">Añadir Nuevo Equipo</a>
+</body>
+</html>
