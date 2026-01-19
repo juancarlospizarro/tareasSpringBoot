@@ -1,31 +1,44 @@
 # CRUD MVC con Thymeleaf — RA3
 
 ## 1) Datos del alumno/a
-- Entidad elegida (ej. Producto, Libro...):
+- Entidad elegida (ej. Producto, Libro...): Equipo
 
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
-- Enlace a MI fork: [PON AQUÍ EL ENLACE CUANDO LO CREES]
+- Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
 - Nº de commits realizados: (mínimo 5)
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
-- Controller:
-- Service:
-- Repository:
-- Entity:
+- Controller: EquipoControlador
+- Service: EquipoServicio
+- Repository: EquipoRepositorio
+- Entity: EquipoEntidad
 
 ## 4) Base de datos elegida (marca una)
-- [ ] H2
+- [X] H2
 - [ ] MySQL
 - [ ] PostgreSQL
 
 ## 5) Configuración de la base de datos
 ### 5.1 Dependencias añadidas
-(Indica la dependencia del driver que has usado)
+<dependency>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
+  <scope>runtime</scope>
+</dependency>
 
 ### 5.2 application.properties / application.yml
-(Pega aquí tu configuración SIN contraseñas reales si es necesario)
+spring.datasource.url=jdbc:h2:mem:cruddb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
 
 ### 5.3 Pasos para crear la BD (si aplica)
 - MySQL: CREATE DATABASE ...
@@ -39,12 +52,12 @@ Explica brevemente cómo has organizado:
    - http://localhost:8080/...
 
 ## 7) Pantallas / Rutas MVC
-- GET /entidad (listar)
-- GET /entidad/nuevo (formulario alta)
-- POST /entidad (crear)
-- GET /entidad/{id}/editar (editar)
-- POST /entidad/{id} (actualizar)
-- POST /entidad/{id}/borrar (eliminar)
+- GET /equipos (listar)
+- GET /equipos/nuevo (formulario alta)
+- POST /equipos (crear)
+- GET /equipos/{id}/editar (editar)
+- POST /equipos/{id} (actualizar)
+- POST /equipos/{id}/borrar (eliminar)
 
 
 ## 8) Mejoras extra (opcional)
