@@ -1,12 +1,14 @@
 # CRUD MVC con Thymeleaf — RA3
 
 ## 1) Datos del alumno/a
+- Nombre y apellidos: Juan Carlos Pizarro Alonso
+- Curso / Grupo: 2º Desarrollo de Aplicaciones Web
 - Entidad elegida (ej. Producto, Libro...): Equipo
 
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
 - Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
-- Nº de commits realizados: (mínimo 5)
+- Nº de commits realizados: 7
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
