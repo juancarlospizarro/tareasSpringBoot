@@ -1,12 +1,12 @@
-package com.crudmvc.tarea3.servicio;
+package com.crudmvc.tareaRA3.servicio;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crudmvc.tarea3.entidad.Equipo;
-import com.crudmvc.tarea3.repositorio.EquipoRepositorio;
+import com.crudmvc.tareaRA3.entidad.Equipo;
+import com.crudmvc.tareaRA3.repositorio.EquipoRepositorio;
 
 @Service
 public class EquipoServicio {
@@ -21,6 +21,10 @@ public class EquipoServicio {
 
 	public List<Equipo> obtenerTodos() {
 		return equipoRepositorio.findAll();
+	}
+	
+	public void eliminarEquipo(Long id) {
+	    equipoRepositorio.deleteById(id);
 	}
 
 }

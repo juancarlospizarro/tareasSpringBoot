@@ -1,4 +1,4 @@
-package com.crudmvc.tarea3.entidad;
+package com.crudmvc.tareaRA3.entidad;
 
 import java.util.Objects;
 
