@@ -51,7 +51,7 @@ spring.h2.console.path=/h2-console
 2. Comando de arranque:
    - ./mvnw spring-boot:run   (o equivalente)
 3. URL de acceso:
-   - http://localhost:8080/...
+   - http://localhost:8081/
 
 ## 7) Pantallas / Rutas MVC
 - GET /equipos (listar)
