@@ -1,6 +1,8 @@
 package com.crudmvc.tareaRA3.controlador;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,17 +36,26 @@ public class EquipoControlador {
 
 	@PostMapping("/nuevo")
 	public String guardarEquipo(Equipo equipo, BindingResult result) {
-		if (result.hasErrors()) {
-			return "equipos/formulario";
-		}
-		equipoServicio.guardarEquipo(equipo);
-		return "redirect:/equipos";
+	    if (result.hasErrors()) {
+	        return "equipos/formulario";
+	    }
+	    equipoServicio.guardarEquipo(equipo); // JPA hace INSERT o UPDATE según id
+	    return "redirect:/equipos";
 	}
 	
 	@GetMapping("/eliminar/{id}")
 	public String eliminarEquipo(@PathVariable Long id) {
 	    equipoServicio.eliminarEquipo(id);
 	    return "redirect:/equipos";
+	}
+	
+	
+	@GetMapping("/editar/{id}")
+	public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
+	    Equipo equipo = equipoServicio.obtenerPorId(id)
+	                      .orElseThrow(() -> new IllegalArgumentException("Id de equipo inválido: " + id));
+	    model.addAttribute("equipo", equipo);
+	    return "equipos/formulario";
 	}
 
 }

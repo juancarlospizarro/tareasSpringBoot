@@ -22,8 +22,8 @@
             <td th:text="${equipo.anio_fundacion}"></td>
             <td th:text="${equipo.ciudad}"></td>
             <td>
-                <!-- Botones o enlaces para editar y eliminar -->
-                <a th:href="@{/equipos/eliminar/{id}(id=${equipo.id})}">Eliminar</a>
+				<a th:href="@{/equipos/editar/{id}(id=${equipo.id})}">Editar</a>
+				<a th:href="@{/equipos/eliminar/{id}(id=${equipo.id})}">Eliminar</a>
             </td>
         </tr>
     </tbody>

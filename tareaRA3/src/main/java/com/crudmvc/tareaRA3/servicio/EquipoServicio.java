@@ -1,6 +1,7 @@
 package com.crudmvc.tareaRA3.servicio;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class EquipoServicio {
 	
 	public void eliminarEquipo(Long id) {
 	    equipoRepositorio.deleteById(id);
+	}
+	
+	public Optional<Equipo> obtenerPorId(Long id) {
+		return equipoRepositorio.findById(id);
 	}
 
 }

@@ -31,6 +31,9 @@
 			<div th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"
 				class="alert alert-danger">Error en la ciudad</div>
 		</div>
+		<div>
+			<input type="hidden" th:field="*{id}" />
+		</div>
 		<button type="submit">Guardar</button>
 	</form>
 
