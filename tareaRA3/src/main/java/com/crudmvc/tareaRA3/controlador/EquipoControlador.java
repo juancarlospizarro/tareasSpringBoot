@@ -15,47 +15,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.crudmvc.tareaRA3.entidad.Equipo;
 import com.crudmvc.tareaRA3.servicio.EquipoServicio;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/equipos")
 public class EquipoControlador {
 
-	@Autowired
-	private EquipoServicio equipoServicio;
+    @Autowired
+    private EquipoServicio equipoServicio;
 
-	@GetMapping
-	public String listarEquipos(Model model) {
-		model.addAttribute("equipos", equipoServicio.obtenerTodos());
-		return "equipos/lista";
-	}
+    @GetMapping
+    public String listarEquipos(Model model) {
+        model.addAttribute("equipos", equipoServicio.obtenerTodos());
+        return "equipos/lista";
+    }
 
-	@GetMapping("/nuevo")
-	public String mostrarFormularioDeNuevoEquipo(Model model) {
-		model.addAttribute("equipo", new Equipo());
-		return "equipos/formulario";
-	}
+    @GetMapping("/nuevo")
+    public String nuevoEquipo(Model model) {
+        model.addAttribute("equipo", new Equipo());
+        return "equipos/formulario";
+    }
 
-	@PostMapping("/nuevo")
-	public String guardarEquipo(Equipo equipo, BindingResult result) {
-	    if (result.hasErrors()) {
-	        return "equipos/formulario";
-	    }
-	    equipoServicio.guardarEquipo(equipo); // JPA hace INSERT o UPDATE según id
-	    return "redirect:/equipos";
-	}
-	
-	@GetMapping("/eliminar/{id}")
-	public String eliminarEquipo(@PathVariable Long id) {
-	    equipoServicio.eliminarEquipo(id);
-	    return "redirect:/equipos";
-	}
-	
-	
-	@GetMapping("/editar/{id}")
-	public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-	    Equipo equipo = equipoServicio.obtenerPorId(id)
-	                      .orElseThrow(() -> new IllegalArgumentException("Id de equipo inválido: " + id));
-	    model.addAttribute("equipo", equipo);
-	    return "equipos/formulario";
-	}
+    @PostMapping
+    public String crearEquipo(@Valid Equipo equipo, BindingResult result) {
+        if (result.hasErrors()) {
+            return "equipos/formulario";
+        }
+        equipoServicio.guardarEquipo(equipo);
+        return "redirect:/equipos";
+    }
 
+    @GetMapping("/{id}/editar")
+    public String editarEquipo(@PathVariable Long id, Model model) {
+        Equipo equipo = equipoServicio.obtenerPorId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
+        model.addAttribute("equipo", equipo);
+        return "equipos/formulario";
+    }
+
+    @PostMapping("/{id}")
+    public String actualizarEquipo(@PathVariable Long id, @Valid Equipo equipo, BindingResult result) {
+        if (result.hasErrors()) {
+            return "equipos/formulario";
+        }
+        equipo.setId(id);
+        equipoServicio.guardarEquipo(equipo);
+        return "redirect:/equipos";
+    }
+
+    @PostMapping("/{id}/eliminar")
+    public String borrarEquipo(@PathVariable Long id) {
+        equipoServicio.eliminarEquipo(id);
+        return "redirect:/equipos";
+    }
 }
+
