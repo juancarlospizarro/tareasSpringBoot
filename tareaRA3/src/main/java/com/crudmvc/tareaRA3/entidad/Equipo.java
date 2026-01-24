@@ -7,6 +7,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="equipos")
@@ -16,8 +20,15 @@ public class Equipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
+    
+    @NotNull(message = "El año es obligatorio")
+    @Min(value = 1850, message = "El año debe ser mayor a 1850")
+    @Max(value = 2026, message = "El año deber ser inferior o igual al actual")
     private int anio_fundacion;
+    
+    @NotBlank(message = "La ciudad es obligatoria")
     private String ciudad;
 
 
