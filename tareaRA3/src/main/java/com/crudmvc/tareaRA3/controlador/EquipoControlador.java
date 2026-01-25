@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crudmvc.tareaRA3.entidad.Equipo;
 import com.crudmvc.tareaRA3.servicio.EquipoServicio;
@@ -25,8 +26,14 @@ public class EquipoControlador {
     private EquipoServicio equipoServicio;
 
     @GetMapping
-    public String listarEquipos(Model model) {
-        model.addAttribute("equipos", equipoServicio.obtenerTodos());
+    public String listarEquipos(@RequestParam(required = false) String nombre, Model model) {
+    	if (nombre != null && !nombre.isBlank()) {
+            model.addAttribute("equipos", equipoServicio.buscarPorNombre(nombre));
+            model.addAttribute("nombre", nombre);
+        } else {
+            model.addAttribute("equipos", equipoServicio.obtenerTodos());
+        }
+
         return "equipos/lista";
     }
 
@@ -47,8 +54,7 @@ public class EquipoControlador {
 
     @GetMapping("/{id}/editar")
     public String editarEquipo(@PathVariable Long id, Model model) {
-        Equipo equipo = equipoServicio.obtenerPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
+        Equipo equipo = equipoServicio.obtenerPorId(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
         model.addAttribute("equipo", equipo);
         return "equipos/formulario";
     }
@@ -67,6 +73,13 @@ public class EquipoControlador {
     public String borrarEquipo(@PathVariable Long id) {
         equipoServicio.eliminarEquipo(id);
         return "redirect:/equipos";
+    }
+    
+    @GetMapping("/{id}")
+    public String verDetallesEquipo(@PathVariable Long id, Model model) {
+        Equipo equipo = equipoServicio.obtenerPorId(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
+        model.addAttribute("equipo", equipo);
+        return "equipos/detalles";
     }
 }
 

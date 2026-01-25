@@ -15,12 +15,27 @@
 			<a th:href="@{/equipos/nuevo}" class="btn btn-success mx-2">
 	            Añadir equipo
 	        </a>
-			<a th:href="@{/}" class="btn btn-danger text-white">
+			<a th:href="@{/}" class="btn btn-secondary text-white">
 	            Volver a inicio
 	        </a>
 		</div>
         
     </div>
+	<form th:action="@{/equipos}" method="get" class="row g-2 mb-4">
+						    <div class="col-md-2">
+						        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre"				               th:value="${nombre}">
+						    </div>
+						    <div class="col-md-1">
+						        <button type="submit" class="btn btn-primary w-100">
+						            Buscar
+						        </button>
+						    </div>
+						    <div class="col-md-1">
+						        <a th:href="@{/equipos}" class="btn btn-secondary w-100">
+						            Borrar
+						        </a>
+						    </div>
+						</form>
 
     <div class="card shadow">
         <div class="card-body">
@@ -39,16 +54,18 @@
                         <td th:text="${equipo.anio_fundacion}"></td>
                         <td th:text="${equipo.ciudad}"></td>
                         <td class="text-center">
+							<a th:href="@{/equipos/{id}(id=${equipo.id})}"
+							   class="btn btn-sm btn-secondary me-2 text-white">
+							    Detalles
+							</a>
                             <a th:href="@{/equipos/{id}/editar(id=${equipo.id})}" 
                                class="btn btn-sm btn-warning me-2">
                                 Editar
                             </a>
-							<form th:action="@{/equipos/{id}/eliminar(id=${equipo.id})}" method="post" class="d-inline">
-								<button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-								        th:attr="data-bs-target='#modalEliminar-' + ${equipo.id}">
-									Eliminar
-								</button>
-							</form>
+							<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+							        th:attr="data-bs-target='#modalEliminar-' + ${equipo.id}">
+								Eliminar
+							</button>
 							<div class="modal fade"
 							     th:id="'modalEliminar-' + ${equipo.id}"
 							     tabindex="-1">
@@ -66,14 +83,11 @@
 							            </div>
 
 							            <div class="modal-footer">
-							                <button type="button"
-							                        class="btn btn-secondary"
-							                        data-bs-dismiss="modal">
+							                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
 							                    Cancelar
 							                </button>
 
-							                <form th:action="@{/equipos/{id}/eliminar(id=${equipo.id})}"
-							                      method="post">
+							                <form th:action="@{/equipos/{id}/eliminar(id=${equipo.id})}" method="post">
 							                    <button type="submit" class="btn btn-danger">
 							                        Eliminar
 							                    </button>
@@ -87,6 +101,7 @@
                     </tr>
                 </tbody>
             </table>
+			
         </div>
     </div>
 </div>

@@ -31,5 +31,10 @@ public class EquipoServicio {
 	public Optional<Equipo> obtenerPorId(Long id) {
 		return equipoRepositorio.findById(id);
 	}
+	
+	public List<Equipo> buscarPorNombre(String nombre) {
+	    return equipoRepositorio.findByNombre(nombre);
+	}
+
 
 }
