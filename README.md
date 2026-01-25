@@ -8,14 +8,15 @@
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
 - Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
-- Nº de commits realizados: 20
+- Nº de commits realizados: 24
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
-- Controller: EquipoControlador en el paquete Controlador
-- Service: EquipoServicio en el paquete Servicio
-- Repository: EquipoRepositorio en el paquete Repositorio
-- Entity: Equipo en el paquete Entidad
+- Controller: Clase EquipoControlador con las diferentes rutas del MVC en el paquete Controlador
+- Service: Interfaz EquipoServicio con la definición de métodos y la clase EquipoServicioImpl con la implementación de esos métodos en el paquete Servicio
+- Repository: Clase EquipoRepositorio en el paquete Repositorio
+- Entity: Clase Equipo correspondiente a la entidad Equipo en el paquete Entidad
+- Configuration: Clase IniciarDatos para la generación de datos de prueba usando Faker
 
 ## 4) Base de datos elegida (marca una)
 - [X]  H2
