@@ -24,17 +24,18 @@ Explica brevemente cómo has organizado:
 
 ## 5) Configuración de la base de datos
 ### 5.1 Dependencias añadidas
+```xml
 <dependency>
   <groupId>com.h2database</groupId>
   <artifactId>h2</artifactId>
   <scope>runtime</scope>
 </dependency>
 
-(Añadida esta dependencia para que poder acceder a la consola de H2 sin problemas)
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-h2console</artifactId>
 </dependency>
+(Añadida esta dependencia para que poder acceder a la consola de H2 sin problemas)
 
 ### 5.2 application.properties / application.yml
 server.port=8081
