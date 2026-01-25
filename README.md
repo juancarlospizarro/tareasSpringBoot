@@ -16,7 +16,7 @@ Explica brevemente cómo has organizado:
 - Service: Interfaz EquipoServicio con la definición de métodos y la clase EquipoServicioImpl con la implementación de esos métodos en el paquete Servicio
 - Repository: Clase EquipoRepositorio en el paquete Repositorio
 - Entity: Clase Equipo correspondiente a la entidad Equipo en el paquete Entidad
-- Configuration: Clase IniciarDatos para la generación de datos de prueba usando Faker
+- Configuration: Clase IniciarDatos para la generación de datos de prueba usando Faker en el paquete Configuración
 
 ## 4) Base de datos elegida (marca una)
 - [X]  H2
