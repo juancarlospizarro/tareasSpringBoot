@@ -35,9 +35,11 @@ Explica brevemente cómo has organizado:
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-h2console</artifactId>
 </dependency>
+```
 (Añadida esta dependencia para que poder acceder a la consola de H2 sin problemas)
 
 ### 5.2 application.properties / application.yml
+```
 server.port=8081
 
 spring.datasource.url=jdbc:h2:mem:cruddb
@@ -49,7 +51,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
-
+```
 ### 5.3 Pasos para crear la BD (si aplica)
 No es necesario crear la base de datos manualmente ya que se utiliza H2 en el proyecto.
 
