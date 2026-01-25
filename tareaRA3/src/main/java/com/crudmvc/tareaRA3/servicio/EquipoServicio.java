@@ -9,32 +9,10 @@ import org.springframework.stereotype.Service;
 import com.crudmvc.tareaRA3.entidad.Equipo;
 import com.crudmvc.tareaRA3.repositorio.EquipoRepositorio;
 
-@Service
-public class EquipoServicio {
-
-    @Autowired
-    private EquipoRepositorio equipoRepositorio;
-
-
-    public Equipo guardarEquipo(Equipo equipo) {
-        return equipoRepositorio.save(equipo);
-    }
-
-	public List<Equipo> obtenerTodos() {
-		return equipoRepositorio.findAll();
-	}
-	
-	public void eliminarEquipo(Long id) {
-	    equipoRepositorio.deleteById(id);
-	}
-	
-	public Optional<Equipo> obtenerPorId(Long id) {
-		return equipoRepositorio.findById(id);
-	}
-	
-	public List<Equipo> buscarPorNombre(String nombre) {
-	    return equipoRepositorio.findByNombre(nombre);
-	}
-
-
+public interface EquipoServicio {
+    List<Equipo> obtenerTodos();
+    Equipo guardarEquipo(Equipo equipo);
+    Optional<Equipo> obtenerPorId(Long id);
+    void eliminarEquipo(Long id);
+    List<Equipo> buscarPorNombre(String nombre);
 }
