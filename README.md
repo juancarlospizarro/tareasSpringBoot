@@ -8,14 +8,14 @@
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
 - Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
-- Nº de commits realizados: 7
+- Nº de commits realizados: 16
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
-- Controller: EquipoControlador
-- Service: EquipoServicio
-- Repository: EquipoRepositorio
-- Entity: EquipoEntidad
+- Controller: EquipoControlador en el paquete Controlador
+- Service: EquipoServicio en el paquete Servicio
+- Repository: EquipoRepositorio en el paquete Repositorio
+- Entity: Equipo en el paquete Entidad
 
 ## 4) Base de datos elegida (marca una)
 - [X] H2
@@ -30,41 +30,48 @@ Explica brevemente cómo has organizado:
   <scope>runtime</scope>
 </dependency>
 
+(Añadida esta dependencia para que poder acceder a la consola de H2 sin problemas)
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-h2console</artifactId>
+</dependency>
+
 ### 5.2 application.properties / application.yml
+server.port=8081
+
 spring.datasource.url=jdbc:h2:mem:cruddb
 spring.datasource.driver-class-name=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 
 spring.jpa.hibernate.ddl-auto=update
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 
 ### 5.3 Pasos para crear la BD (si aplica)
-- MySQL: CREATE DATABASE ...
-- PostgreSQL: createdb ...
+No es necesario crear la base de datos manualmente ya que se utiliza H2 en el proyecto.
 
 ## 6) Cómo ejecutar el proyecto
-1. Requisitos (Java versión, Maven/Gradle, DB instalada si aplica)
+1. Requisitos (Java versión, Maven/Gradle, DB instalada si aplica): Java 21 y Maven.
 2. Comando de arranque:
-   - ./mvnw spring-boot:run   (o equivalente)
+   - mvn spring-boot:run (Desde la subcarpeta tareaRA3, que es donde se encuentra el proyecto de Spring Boot)
 3. URL de acceso:
-   - http://localhost:8081/
+   - http://localhost:8081/ (Acceso a la página de inicio)
 
 ## 7) Pantallas / Rutas MVC
 - GET /equipos (listar)
 - GET /equipos/nuevo (formulario alta)
 - POST /equipos (crear)
-- GET /equipos/{id}/editar (editar)
+- GET /equipos/{id}/editar (formulario editar)
 - POST /equipos/{id} (actualizar)
-- POST /equipos/{id}/borrar (eliminar)
+- POST /equipos/{id}/eliminar (eliminar)
+- GET /equipos/{id} (ver detalles de equipo)
 
 
 ## 8) Mejoras extra (opcional)
-- Validaciones
-- Estilos Bootstrap
-- Búsqueda
-- Pruebas
-- Paginación
+- Validaciones [X]
+- Estilos Bootstrap [X]
+- Búsqueda [X]
+- Pruebas [ ]
+- Paginación [ ]
