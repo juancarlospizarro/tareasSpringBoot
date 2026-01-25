@@ -8,7 +8,7 @@
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
 - Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
-- Nº de commits realizados: 16
+- Nº de commits realizados: 20
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
@@ -18,9 +18,9 @@ Explica brevemente cómo has organizado:
 - Entity: Equipo en el paquete Entidad
 
 ## 4) Base de datos elegida (marca una)
-- [X] H2
-- [ ] MySQL
-- [ ] PostgreSQL
+- [X]  H2
+- [ ]  MySQL
+- [ ]  PostgreSQL
 
 ## 5) Configuración de la base de datos
 ### 5.1 Dependencias añadidas
@@ -73,8 +73,8 @@ No es necesario crear la base de datos manualmente ya que se utiliza H2 en el pr
 
 
 ## 8) Mejoras extra (opcional)
-- Validaciones [X]
-- Estilos Bootstrap [X]
-- Búsqueda [X]
-- Pruebas [ ]
-- Paginación [ ]
+- [X]  Validaciones
+- [X]  Estilos Bootstrap 
+- [X]  Búsqueda 
+- [ ]  Pruebas 
+- [ ]  Paginación
