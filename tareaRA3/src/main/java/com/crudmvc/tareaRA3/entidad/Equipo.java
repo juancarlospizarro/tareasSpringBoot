@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="equipos")
@@ -21,14 +22,16 @@ public class Equipo {
     private Long id;
     
     @NotBlank(message = "El nombre es obligatorio")
+    @Size(min = 3, max = 30)
     private String nombre;
     
     @NotNull(message = "El año es obligatorio")
     @Min(value = 1850, message = "El año debe ser mayor a 1850")
     @Max(value = 2026, message = "El año deber ser inferior o igual al actual")
-    private int anio_fundacion;
+    private Integer anio_fundacion;
     
     @NotBlank(message = "La ciudad es obligatoria")
+    @Size(min = 3, max = 30)
     private String ciudad;
 
 
@@ -52,12 +55,12 @@ public class Equipo {
 	}
 	
 
-	public int getAnio_fundacion() {
+	public Integer getAnio_fundacion() {
 		return anio_fundacion;
 	}
 
 
-	public void setAnio_fundacion(int anio_fundacion) {
+	public void setAnio_fundacion(Integer anio_fundacion) {
 		this.anio_fundacion = anio_fundacion;
 	}
 
