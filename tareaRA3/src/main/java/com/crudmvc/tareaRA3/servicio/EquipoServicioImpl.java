@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.crudmvc.tareaRA3.entidad.Equipo;
@@ -36,7 +38,14 @@ public class EquipoServicioImpl implements EquipoServicio {
 	}
 	
     @Override
-	public List<Equipo> buscarPorNombre(String nombre) {
-	    return equipoRepositorio.findByNombre(nombre);
+	public Page<Equipo> buscarPorNombre(String nombre, Pageable pageable) {
+	    return equipoRepositorio.findByNombre(nombre, pageable);
 	}
+
+	@Override
+	public Page<Equipo> listarTodosLosEquipos(Pageable pageable) {
+		return equipoRepositorio.findAll(pageable);
+	}
+	
+	
 }

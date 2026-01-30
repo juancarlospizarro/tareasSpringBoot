@@ -4,6 +4,9 @@ package com.crudmvc.tareaRA3.controlador;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,14 +29,18 @@ public class EquipoControlador {
     private EquipoServicio equipoServicio;
 
     @GetMapping
-    public String listarEquipos(@RequestParam(required = false) String nombre, Model model) {
-    	if (nombre != null && !nombre.isBlank()) {
-            model.addAttribute("equipos", equipoServicio.buscarPorNombre(nombre));
+    public String listarEquipos(@RequestParam(required = false) String nombre, @PageableDefault(size = 5) Pageable page, Model model) {
+    	
+    	Page<Equipo> equipos;
+
+        if (nombre != null && !nombre.isBlank()) {
+            equipos = equipoServicio.buscarPorNombre(nombre, page);
             model.addAttribute("nombre", nombre);
         } else {
-            model.addAttribute("equipos", equipoServicio.obtenerTodos());
+            equipos = equipoServicio.listarTodosLosEquipos(page);
         }
 
+        model.addAttribute("equipos", equipos);
         return "equipos/lista";
     }
 

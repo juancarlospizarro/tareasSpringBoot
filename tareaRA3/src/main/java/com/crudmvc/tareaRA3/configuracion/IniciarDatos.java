@@ -18,7 +18,7 @@ public class IniciarDatos implements CommandLineRunner {
     @Autowired
     private EquipoRepositorio equipoRepositorio;
 
-    private static final int TOTAL_EQUIPOS = 10;
+    private static final int TOTAL_EQUIPOS = 23;
     private static final int ANIO_MIN = 1850;
     private static final int ANIO_MAX = 2026;
 
