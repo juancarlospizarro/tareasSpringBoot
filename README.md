@@ -8,7 +8,7 @@
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
 - Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
-- Nº de commits realizados: 24
+- Nº de commits realizados: 27
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
@@ -78,4 +78,4 @@ No es necesario crear la base de datos manualmente ya que se utiliza H2 en el pr
 - [X]  Estilos Bootstrap 
 - [X]  Búsqueda 
 - [ ]  Pruebas 
-- [ ]  Paginación
+- [X]  Paginación
