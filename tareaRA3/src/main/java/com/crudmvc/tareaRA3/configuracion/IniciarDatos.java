@@ -35,55 +35,53 @@ public class IniciarDatos implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-    	if (usuarioRepositorio.count() > 0) {
-            return;
-        }
-
-        Usuario usuario = new Usuario();
-        usuario.setNombre("usuario");
-        usuario.setContrasena(passwordEncoder.encode("1234"));
-        usuario.setRol(Rol.USUARIO);
-        usuarioRepositorio.save(usuario);
-        
-        Usuario manager = new Usuario();
-        manager.setNombre("manager");
-        manager.setContrasena(passwordEncoder.encode("1234"));
-        manager.setRol(Rol.MANAGER);
-        usuarioRepositorio.save(manager);
-        
-        Usuario admin = new Usuario();
-        admin.setNombre("admin");
-        admin.setContrasena(passwordEncoder.encode("1234"));
-        admin.setRol(Rol.ADMIN);
-        usuarioRepositorio.save(admin);
-        
-        if (equipoRepositorio.count() > 0) {
-            return;
-        }
-
-        Faker faker = new Faker(new Locale("es"));
+    	Faker faker = new Faker(new Locale("es"));
         Random random = new Random();
-
-        for (int i = 0; i < TOTAL_EQUIPOS; i++) {
-            Equipo equipo = new Equipo();
+        
+    	if (usuarioRepositorio.count() <= 0) {
+    		Usuario usuario = new Usuario();
+            usuario.setNombre("usuario");
+            usuario.setContrasena(passwordEncoder.encode("1234"));
+            usuario.setRol(Rol.USUARIO);
+            usuarioRepositorio.save(usuario);
             
-         // Generar nombre de equipo con longitud entre 3 y 30
-            String nombre;
-            do {
-                nombre = faker.team().name(); 
-            } while (nombre.length() < 3 || nombre.length() > 30);
-            equipo.setNombre(nombre);
-
-            // Generar ciudad con longitud entre 3 y 30
-            String ciudad;
-            do {
-                ciudad = faker.address().city();
-            } while (ciudad.length() < 3 || ciudad.length() > 30);
-            equipo.setCiudad(ciudad);
+            Usuario manager = new Usuario();
+            manager.setNombre("manager");
+            manager.setContrasena(passwordEncoder.encode("1234"));
+            manager.setRol(Rol.MANAGER);
+            usuarioRepositorio.save(manager);
             
-            equipo.setAnio_fundacion(faker.number().numberBetween(ANIO_MIN, ANIO_MAX + 1));
-
-            equipoRepositorio.save(equipo);
+            Usuario admin = new Usuario();
+            admin.setNombre("admin");
+            admin.setContrasena(passwordEncoder.encode("1234"));
+            admin.setRol(Rol.ADMIN);
+            usuarioRepositorio.save(admin);
         }
+    	
+    	if(equipoRepositorio.count() <= 0) {
+    		for (int i = 0; i < TOTAL_EQUIPOS; i++) {
+                Equipo equipo = new Equipo();
+                
+             // Generar nombre de equipo con longitud entre 3 y 30
+                String nombre;
+                do {
+                    nombre = faker.team().name(); 
+                } while (nombre.length() < 3 || nombre.length() > 30);
+                equipo.setNombre(nombre);
+
+                // Generar ciudad con longitud entre 3 y 30
+                String ciudad;
+                do {
+                    ciudad = faker.address().city();
+                } while (ciudad.length() < 3 || ciudad.length() > 30);
+                equipo.setCiudad(ciudad);
+                
+                equipo.setAnio_fundacion(faker.number().numberBetween(ANIO_MIN, ANIO_MAX + 1));
+
+                equipoRepositorio.save(equipo);
+            }
+    	}
+
+        
     }
 }
