@@ -1,0 +1,13 @@
+<div th:fragment="logout">
+  <form th:if="${usuario != null}"
+        th:action="@{/logout}"
+        method="post"
+        class="d-inline">
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+	<button type="submit" class="btn btn-outline-danger mx-3">
+        Cerrar sesión
+    </button>
+  </form>
+</div>

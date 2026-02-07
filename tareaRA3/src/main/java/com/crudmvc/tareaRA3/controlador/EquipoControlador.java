@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crudmvc.tareaRA3.entidad.Equipo;
+import com.crudmvc.tareaRA3.entidad.Usuario;
 import com.crudmvc.tareaRA3.servicio.EquipoServicio;
+import com.crudmvc.tareaRA3.servicio.UsuarioServicio;
 
 import jakarta.validation.Valid;
 

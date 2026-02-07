@@ -6,10 +6,14 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.crudmvc.tareaRA3.entidad.Equipo;
+import com.crudmvc.tareaRA3.entidad.Rol;
+import com.crudmvc.tareaRA3.entidad.Usuario;
 import com.crudmvc.tareaRA3.repositorio.EquipoRepositorio;
+import com.crudmvc.tareaRA3.repositorio.UsuarioRepositorio;
 import com.github.javafaker.Faker;
 
 @Component
@@ -18,6 +22,12 @@ public class IniciarDatos implements CommandLineRunner {
     @Autowired
     private EquipoRepositorio equipoRepositorio;
 
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
     private static final int TOTAL_EQUIPOS = 23;
     private static final int ANIO_MIN = 1850;
     private static final int ANIO_MAX = 2026;
@@ -25,6 +35,28 @@ public class IniciarDatos implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+    	if (usuarioRepositorio.count() > 0) {
+            return;
+        }
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre("usuario");
+        usuario.setContrasena(passwordEncoder.encode("1234"));
+        usuario.setRol(Rol.USUARIO);
+        usuarioRepositorio.save(usuario);
+        
+        Usuario manager = new Usuario();
+        manager.setNombre("manager");
+        manager.setContrasena(passwordEncoder.encode("1234"));
+        manager.setRol(Rol.MANAGER);
+        usuarioRepositorio.save(manager);
+        
+        Usuario admin = new Usuario();
+        admin.setNombre("admin");
+        admin.setContrasena(passwordEncoder.encode("1234"));
+        admin.setRol(Rol.ADMIN);
+        usuarioRepositorio.save(admin);
+        
         if (equipoRepositorio.count() > 0) {
             return;
         }

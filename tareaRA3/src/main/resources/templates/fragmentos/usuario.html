@@ -1,0 +1,11 @@
+<div th:fragment="usuario" class="container mt-3">
+    <div class="alert alert-light border d-flex align-items-center justify-content-center gap-2 shadow-sm">
+        <span class="fs-4">👋</span>
+
+        <span class="fw-semibold">
+            Bienvenido
+            <span th:if="${usuario != null}" class="text-primary" th:text="${usuario.nombre}"></span>
+            <span th:unless="${usuario != null}" class="text-secondary">invitado</span>
+        </span>
+    </div>
+</div>

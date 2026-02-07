@@ -37,24 +37,6 @@ public class Seguridad {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
-    public UserDetailsService users(PasswordEncoder passwordEncoder) {
-
-        UserDetails user1 = User.builder()
-                .username("user1")
-                .password(passwordEncoder.encode("user1"))
-                .roles("USER")
-                .build();
-
-        UserDetails admin1 = User.builder()
-                .username("admin1")
-                .password(passwordEncoder.encode("admin1"))
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1, admin1);
-    }
     
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -69,30 +51,26 @@ public class Seguridad {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
                 // público
-                .requestMatchers("/", "/login").permitAll()
+                .requestMatchers("/login", "/").permitAll()
 
                 // Usuarios normales
-                .requestMatchers("/equipos").authenticated()
+                .requestMatchers("/equipos", "/inicio").authenticated()
                 
-                // H2 solo ADMIN
-                .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
-                .requestMatchers("/h2-console/**").hasRole("ADMIN")
+                .requestMatchers("/equipos/nuevo", "/equipos/*/editar")
+                .hasAnyRole("MANAGER", "ADMIN")
+                
+                .requestMatchers("/equipos/*/eliminar")
+                .hasRole("ADMIN")
 
                 // el resto: autenticado
                 .anyRequest().authenticated()
                 
         );
 
-        // CSRF: desactivar solo para H2
-        http.csrf(csrf -> csrf
-                .ignoringRequestMatchers(PathRequest.toH2Console())
-                .ignoringRequestMatchers("/h2-console/**", "/h2/**")
-        );
-
         // login form
         http.formLogin(form -> form
         		.loginPage("/login")
-                .defaultSuccessUrl("/equipos")
+                .defaultSuccessUrl("/inicio")
                 .permitAll()
                 
         );
