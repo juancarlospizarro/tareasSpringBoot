@@ -10,10 +10,11 @@ import com.crudmvc.tareaRA3.entidad.Usuario;
 
 public interface UsuarioServicio {
 	  Usuario crear(String nombre, String contrasenaEnClaro, Rol rol);
-	  Usuario actualizar(Long id, String nuevoNombre, Rol nuevoRol);
+	  Usuario actualizar(Long id, String nuevoNombre, Rol nuevoRol, String contraseña);
 	  void cambiarContrasena(Long id, String contrasenaActualEnClaro, String nuevaContrasenaEnClaro);
 	  Usuario obtenerPorId(Long id);
 	  Usuario obtenerPorNombre(String nombre);
+	  Page<Usuario> buscarPorNombre(String nombre, Pageable pageable);
 	  List<Usuario> listar();
 	  Page<Usuario> listar(Pageable pageable);
 	  void eliminar(Long id);

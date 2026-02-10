@@ -1,5 +1,6 @@
 package com.crudmvc.tareaRA3.controlador;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,6 +27,15 @@ public class GlobalExceptionHandler {
     model.addAttribute("path", req.getRequestURI());
     model.addAttribute("status", 400);
     return "error";
+  }
+  
+  @ExceptionHandler(AccessDeniedException.class)
+  public String handleAccessDenied(AccessDeniedException ex, HttpServletRequest req, Model model) {
+      model.addAttribute("titulo", "Acceso denegado");
+      model.addAttribute("mensaje", "No tienes permisos para acceder a esta página.");
+      model.addAttribute("path", req.getRequestURI());
+      model.addAttribute("status", 403);
+      return "error";
   }
 
   @ExceptionHandler(Exception.class)

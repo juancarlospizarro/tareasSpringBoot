@@ -1,5 +1,5 @@
 <div th:fragment="logout">
-  <form th:if="${usuario != null}"
+  <form th:if="${usuarioConectado != null}"
         th:action="@{/logout}"
         method="post"
         class="d-inline">

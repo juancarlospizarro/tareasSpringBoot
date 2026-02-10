@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión Deportiva - Usuarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-light">
+	
+<div th:replace="~{fragmentos/header :: header}"></div>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Listado de Usuarios</h1>
+		<div class="d-flex justify-content-between align-items-center">
+			<a th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''MANAGER'')')}"
+			   th:href="@{/usuarios/nuevo}"
+			   class="btn btn-success mx-2">
+			    Añadir usuario
+			</a>
+		</div>
+        
+    </div>
+	<form th:action="@{/usuarios}" method="get" class="row g-2 mb-4">
+						    <div class="col-md-2">
+						        <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre"				               th:value="${nombre}">
+						    </div>
+						    <div class="col-md-1">
+						        <button type="submit" class="btn btn-primary w-100">
+						            Buscar
+						        </button>
+						    </div>
+						    <div class="col-md-1">
+						        <a th:href="@{/usuarios}" class="btn btn-secondary w-100">
+						            Borrar
+						        </a>
+						    </div>
+						</form>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.nombre}"></td>
+                        <td th:text="${usuario.rol}"></td>
+						<td class="text-center"
+						    th:with="usuarioLogueado = ${#authentication.name},
+						             esMismoUsuario = ${usuarioLogueado == usuario.nombre},
+						             soyAdmin = ${#authorization.expression('hasRole(''ADMIN'')')},
+						             soyManager = ${#authorization.expression('hasRole(''MANAGER'')')},
+						             esAdmin = ${usuario.rol.toString() == 'ADMIN'},
+						             esManager = ${usuario.rol.toString() == 'MANAGER'},
+						             
+						             permisoPorJerarquia = ${soyAdmin} or (${soyManager} and !${esAdmin} and !${esManager}),
+						             
+						             mostrarBotones = !${esMismoUsuario} and ${permisoPorJerarquia}">
+
+						    <div th:if="${mostrarBotones}">
+						        
+						        <a th:href="@{/usuarios/{id}/editar(id=${usuario.id})}"
+						           class="btn btn-sm btn-warning me-2">
+						            Editar
+						        </a>
+
+						        <button th:if="${soyAdmin}"
+						                type="button"
+						                class="btn btn-sm btn-danger"
+						                data-bs-toggle="modal"
+						                th:attr="data-bs-target='#modalEliminar-' + ${usuario.id}">
+						            Eliminar
+						        </button>
+
+						        <div class="modal fade" th:id="'modalEliminar-' + ${usuario.id}" tabindex="-1">
+						            <div class="modal-dialog">
+						                <div class="modal-content">
+						                    <div class="modal-header bg-danger text-white">
+						                        <h5 class="modal-title">Confirmar eliminación</h5>
+						                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						                    </div>
+						                    <div class="modal-body">
+						                        ¿Seguro que deseas eliminar el usuario <strong th:text="${usuario.nombre}"></strong>?
+						                    </div>
+						                    <div class="modal-footer">
+						                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+						                        <form th:action="@{/usuarios/{id}/eliminar(id=${usuario.id})}" method="post">
+						                            <button type="submit" class="btn btn-danger">Eliminar</button>
+						                        </form>
+						                    </div>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+
+						    <div th:unless="${mostrarBotones}">
+						        <span class="text-muted fst-italic" style="font-size: 0.9em;">
+						            <i class="bi bi-slash-circle"></i> 
+						            <span th:if="${esMismoUsuario}">Tu usuario (sin acciones)</span>
+						            <span th:unless="${esMismoUsuario}">No tiene los permisos necesarios</span>
+						        </span>
+						    </div>
+
+						</td>
+                    </tr>
+                </tbody>
+            </table>
+			<!-- Controles de paginación -->
+			<div>
+				<nav aria-label="Paginación de equipos">
+			    <ul class="pagination justify-content-center">
+
+			        <!-- Enlace "Inicio" -->
+					<li class="page-item" th:classappend="${usuarios.first} ? 'disabled'">
+					    <a class="page-link"
+					       th:href="@{/usuarios(nombre=${nombre}, page=0)}">
+					        Inicio
+					    </a>
+					</li>
+
+					<li class="page-item" th:classappend="${!usuarios.hasPrevious()} ? 'disabled'">
+					    <a class="page-link"
+					       th:href="@{/usuarios(nombre=${nombre}, page=${usuarios.number - 1})}">
+					        <i class="bi bi-caret-left-square-fill"></i> Anterior
+					    </a>
+					</li>
+					
+					<!-- Enlace a la página anterior a la actual, si existe -->
+					<li th:if="${usuarios.number > 1}" class="page-item">
+					    <a th:href="@{/usuarios(nombre=${nombreBusqueda}, page=${usuarios.number - 2})}"
+					       class="page-link"
+					       th:text="${usuarios.number - 1}">
+					    </a>
+					</li>
+
+					<!-- Enlace a la página actual -->
+					<li class="page-item active">
+					    <a th:href="@{/usuarios(nombre=${nombreBusqueda}, page=${usuarios.number})}"
+					       class="page-link"
+					       th:text="${usuarios.number + 1}">
+					    </a>
+					</li>
+
+					<!-- Enlace a la página siguiente a la actual, si existe -->
+					<li th:if="${usuarios.number + 1 < usuarios.totalPages}" class="page-item">
+					    <a th:href="@{/usuarios(nombre=${nombreBusqueda}, page=${usuarios.number + 1})}"
+					       class="page-link"
+					       th:text="${usuarios.number + 2}">
+					    </a>
+					</li>
+
+			        <!-- Enlace "Siguiente" -->
+					<li class="page-item" th:classappend="${!usuarios.hasNext()} ? 'disabled'">
+					    <a class="page-link"
+					       th:href="@{/usuarios(nombre=${nombre}, page=${usuarios.number + 1})}">
+					        Siguiente <i class="bi bi-caret-right-square-fill"></i>
+					    </a>
+					</li>
+
+					<li class="page-item" th:classappend="${usuarios.last} ? 'disabled'">
+					    <a class="page-link"
+					       th:href="@{/usuarios(nombre=${nombre}, page=${usuarios.totalPages - 1})}">
+					        Fin
+					    </a>
+					</li>
+
+			    </ul>
+				</nav>
+				<p class="text-center text-muted mt-2">
+				    Página <strong th:text="${usuarios.number + 1}"></strong>
+				    de <strong th:text="${usuarios.totalPages}"></strong>
+				</p>
+			</div>
+			
+			
+
+			
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragmentos/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

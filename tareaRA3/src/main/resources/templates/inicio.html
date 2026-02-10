@@ -14,7 +14,7 @@
 <div th:replace="~{fragmentos/usuario :: usuario}"></div>
 	
 <main class="flex-fill d-flex justify-content-center align-items-center mt-5">
-    <div class="card shadow-lg p-5 text-center rounded-4" style="max-width: 420px;">
+    <div class="card shadow-lg p-5 mx-5 text-center rounded-4" style="max-width: 420px;">
         <h1 class="mb-3">Gestión de Equipos</h1>
         <p class="text-muted mb-4">
             Administración y consulta de equipos
@@ -23,6 +23,16 @@
             Ver equipos
         </a>
     </div>
+	<div class="card shadow-lg p-5 mx-5 text-center rounded-4" style="max-width: 420px;" th:if="${#authorization.expression('hasAnyRole(''MANAGER'',''ADMIN'')')}">
+
+	        <h1 class="mb-3">Gestión de Usuarios</h1>
+	        <p class="text-muted mb-4">
+	            Administración de usuarios y roles
+	        </p>
+	        <a th:href="@{/usuarios}" class="btn btn-primary btn-lg w-100">
+	            Ver usuarios
+	        </a>
+	    </div>
 </main>
 
 <div th:replace="~{fragmentos/footer :: footer}"></div>

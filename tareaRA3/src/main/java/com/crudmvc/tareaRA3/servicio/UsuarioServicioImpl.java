@@ -32,14 +32,14 @@ public class UsuarioServicioImpl implements UsuarioServicio {
     }
     Usuario u = new Usuario();
     u.setNombre(nombre);
-    u.setContrasena(passwordEncoder.encode(contrasenaEnClaro));
+    u.setContrasena(contrasenaEnClaro);
     u.setRol(rol);
     return usuarioRepositorio.save(u);
   }
 
   @Override
-  public Usuario obtenerPorNombre(String nombre) {
-    return usuarioRepositorio.findByNombre(nombre);
+  public Page<Usuario> buscarPorNombre(String nombre, Pageable pageable) {
+    return usuarioRepositorio.findByNombre(nombre, pageable);
   }
 
   @Override
@@ -59,10 +59,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
   }
 
   @Override
-  public Usuario actualizar(Long id, String nuevoNombre, Rol nuevoRol) {
+  public Usuario actualizar(Long id, String nuevoNombre, Rol nuevoRol, String nuevaContrasena) {
     Usuario u = obtenerPorId(id);
     u.setNombre(nuevoNombre);
     u.setRol(nuevoRol);
+    u.setContrasena(nuevaContrasena);
     return usuarioRepositorio.save(u);
   }
 
@@ -93,5 +94,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
       return usuarioRepositorio.findByNombre(nombreUsuarioConectado);
     }
     return null;
+  }
+
+  @Override
+  public Usuario obtenerPorNombre(String nombre) {
+	// TODO Auto-generated method stub
+	return null;
   }
 }

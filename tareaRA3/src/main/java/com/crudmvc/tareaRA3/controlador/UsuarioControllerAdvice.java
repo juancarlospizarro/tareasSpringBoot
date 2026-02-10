@@ -17,7 +17,7 @@ public class UsuarioControllerAdvice {
         this.usuarioRepositorio = usuarioRepositorio;
     }
 
-    @ModelAttribute("usuario")
+    @ModelAttribute("usuarioConectado")
     public Usuario usuarioLogueado() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

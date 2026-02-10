@@ -22,20 +22,23 @@
                             Equipos
                         </a>
                     </li>
+					<li th:if="${#authorization.expression('hasAnyRole(''MANAGER'',''ADMIN'')')}">
+					  <a th:href="@{/usuarios}" class="nav-link">Usuarios</a>
+					</li>
                 </ul>
 
                 <!-- Usuario + logout derecha -->
                 <ul class="navbar-nav align-items-center gap-2">
 
                     <!-- Usuario logueado -->
-                    <li class="nav-item" th:if="${usuario != null}">
+                    <li class="nav-item" th:if="${usuarioConectado != null}">
                         <span class="nav-link fw-semibold">
-                            👤 <span th:text="${usuario.nombre}"></span>
+                            👤 <span th:text="${usuarioConectado.nombre}"></span>
                         </span>
                     </li>
 
                     <!-- Invitado -->
-                    <li class="nav-item" th:unless="${usuario != null}">
+                    <li class="nav-item" th:unless="${usuarioConectado != null}">
                         <span class="nav-link text-secondary">
                             👤 Invitado
                         </span>

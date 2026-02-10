@@ -8,6 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios")
@@ -18,10 +21,13 @@ public class Usuario {
   private Long id;
 
   @Column(unique = true, nullable = false)
+  @NotBlank(message = "El nombre es obligatorio")
+  @Size(min = 3, max = 30)
   private String nombre;
 
   @Column(nullable = false)
-  private String contrasena; // almacenada en BBDD como HASH (BCrypt)
+  //@NotBlank(message = "La contraseña es obligatoria")
+  private String contrasena;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,12 +48,14 @@ public class EquipoControlador {
     }
 
     @GetMapping("/nuevo")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public String nuevoEquipo(Model model) {
         model.addAttribute("equipo", new Equipo());
         return "equipos/formulario";
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public String crearEquipo(@Valid Equipo equipo, BindingResult result) {
         if (result.hasErrors()) {
             return "equipos/formulario";
@@ -62,6 +65,7 @@ public class EquipoControlador {
     }
 
     @GetMapping("/{id}/editar")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public String editarEquipo(@PathVariable Long id, Model model) {
         Equipo equipo = equipoServicio.obtenerPorId(id).orElseThrow(() -> new IllegalArgumentException("Id inválido: " + id));
         model.addAttribute("equipo", equipo);
@@ -69,6 +73,7 @@ public class EquipoControlador {
     }
 
     @PostMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
     public String actualizarEquipo(@PathVariable Long id, @Valid Equipo equipo, BindingResult result) {
         if (result.hasErrors()) {
             return "equipos/formulario";
@@ -79,6 +84,7 @@ public class EquipoControlador {
     }
 
     @PostMapping("/{id}/eliminar")
+    @PreAuthorize("hasRole('ADMIN')")
     public String borrarEquipo(@PathVariable Long id) {
         equipoServicio.eliminarEquipo(id);
         return "redirect:/equipos";

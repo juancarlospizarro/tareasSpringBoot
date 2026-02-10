@@ -4,8 +4,8 @@
 
         <span class="fw-semibold">
             Bienvenido
-            <span th:if="${usuario != null}" class="text-primary" th:text="${usuario.nombre}"></span>
-            <span th:unless="${usuario != null}" class="text-secondary">invitado</span>
+            <span th:if="${usuarioConectado != null}" class="text-primary" th:text="${usuarioConectado.nombre}"></span>
+            <span th:unless="${usuarioConectado != null}" class="text-secondary">invitado</span>
         </span>
     </div>
 </div>
