@@ -8,11 +8,13 @@
 ## 2) Repositorio (fork) y gestión de versiones
 - Repositorio base: https://github.com/profeInformatica101/tareasSpringBoot
 - Enlace a MI fork: [[Enlace](https://github.com/juancarlospizarro/tareasSpringBoot)]
-- Nº de commits realizados: 30
+- Nº de commits realizados: 31
+- Commit de entrega: Commit siguiente al d117b91
+- Rama de trabajo: main
 
 ## 3) Arquitectura
 Explica brevemente cómo has organizado:
-- Controller: Clase EquipoControlador, LoginControlador, InicioControlador, UsuarioAdviceController y GlobalExceptionHandler con las diferentes rutas del MVC en el paquete Controlador
+- Controller: Clase EquipoControlador, LoginControlador, InicioControlador, UsuarioAdviceController, UsuarioControlador y GlobalExceptionHandler con las diferentes rutas del MVC en el paquete Controlador
 - Service: Interfaz EquipoServicio y UsuarioServicio con la definición de métodos y la clase EquipoServicioImpl y UsuarioServicioImpl con la implementación de esos métodos además de UserDetailsServiceImpl en el paquete Servicio
 - Repository: Clase EquipoRepositorio y UsuarioRepositorio en el paquete Repositorio
 - Entity: Clase Equipo, Usuario y Rol correspondiente a la entidad Equipo, la entidad Usuario y el enumerado Rol respectivamente en el paquete Entidad
@@ -54,18 +56,31 @@ Para poder trabajar con la base de datos, es necesario antes crearla usando la s
    - http://localhost:8081/ (Acceso a la página de invitado. A partir de ella se puede iniciar sesión y acceder al contenido)
 
 ## 7) Pantallas / Rutas MVC
+### Generales
 - GET / (invitado)
 - GET /inicio (inicio de usuario)
 - GET /login (inicio de sesión)
+
+### Equipos
 - GET /equipos (listar)
 - GET /equipos/nuevo (formulario alta)
 - POST /equipos (crear)
+- GET /equipos/{id} (ver detalles de equipo)
 - GET /equipos/{id}/editar (formulario editar)
 - POST /equipos/{id} (actualizar)
 - POST /equipos/{id}/eliminar (eliminar)
-- GET /equipos/{id} (ver detalles de equipo)
+
+### Usuarios
+- GET /usuarios (listar usuarios)
+- GET /usuarios/nuevo (formulario alta usuario)
+- POST /usuarios (crear usuario)
+- GET /usuarios/{id}/editar (formulario editar usuario)
+- POST /usuarios/{id} (actualizar usuario)
+- POST /usuarios/{id}/eliminar (eliminar usuario)
 
 A las diferentes vistas podrán acceder en función del rol del usuario. En caso de ser un usuario normal podrá acceder a todo menos a crear, editar y eliminar equipos. En caso de ser un usuario manager podrá acceder a todo menos a eliminar equipos y en caso de ser admin podrá acceder a todas las rutas.
+
+Lo mismo ocurre a la hora de tratar con los usuarios registrados. Solo los usuarios con rol de manager y admin podrán acceder a la lista de usuarios. El usuario de tipo manager podrá editar y crear usuarios con rol de usuario y el admin podrá crear, editar y eliminar todo tipo de usuario.
 
 ## 8) Mejoras extra (opcional)
 - [X]  Validaciones
